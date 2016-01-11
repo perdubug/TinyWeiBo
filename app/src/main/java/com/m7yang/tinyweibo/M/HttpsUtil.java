@@ -1,5 +1,7 @@
 package com.m7yang.tinyweibo.M;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -19,7 +21,7 @@ public class HttpsUtil {
     public static String HttpsPost(String httpsurl, String data) {
 
         String result = null;
-        HttpURLConnection http = null;
+        HttpURLConnection http;
         URL url;
 
         try {
@@ -64,7 +66,7 @@ public class HttpsUtil {
 
             // Check http response code
             httpsResponseCode = http.getResponseCode();
-            BufferedReader in = null;
+            BufferedReader in;
             if (httpsResponseCode == 200) {
                 getCookie(http);
                 in = new BufferedReader(new InputStreamReader(http.getInputStream()));
@@ -86,6 +88,7 @@ public class HttpsUtil {
 
         } catch (Exception e) {
             e.printStackTrace();
+            Log.v(TAG, "HttpsUtil@Exception");
         }
         return result;
     }
@@ -95,8 +98,8 @@ public class HttpsUtil {
      *
      */
     private static void getCookie(HttpURLConnection http) {
-        String cookieVal = null;
-        String key = null;
+        String cookieVal;
+        String key;
         mCookie = "";
         for (int i = 1; (key = http.getHeaderFieldKey(i)) != null; i++) {
             if (key.equalsIgnoreCase("set-cookie")) {

@@ -1,16 +1,12 @@
 package com.m7yang.tinyweibo.V;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
@@ -50,6 +46,7 @@ public class MainActivity extends AppCompatActivity
     private static final int REQUEST_LOGIN = 3;
     private static final int REQUEST_SYNC  = 5;
     private static final int REQUEST_SHOW  = 7;
+    private static final int REQUEST_POST  = 9;
 
     // These are the DB rows that we will retrieve
     static final String[] PROJECTION = new String[] {WeiboMessageDB.DBEntry.COLUMN_CONTENT,
@@ -67,7 +64,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, EditActivity.class);
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, REQUEST_POST);
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
@@ -107,7 +104,9 @@ public class MainActivity extends AppCompatActivity
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_LOGIN:
-                    // Login activity done successfully, then start SyncActivity activity to sync data from Sina WeiBo
+                    // Login activity done successfully, then...
+                    getLoaderManager().initLoader(0, null, this);
+
                     intent = new Intent(MainActivity.this, SyncActivity.class);
                     startActivityForResult(intent, REQUEST_SYNC);
                     break;
@@ -118,6 +117,12 @@ public class MainActivity extends AppCompatActivity
                     break;
                 case REQUEST_SHOW:
                     //TODO:Something need to down when show data in DB done
+                    break;
+                case REQUEST_POST:
+                    // EditcActivity activity done, meaning that we post a weibo, then sync and refresh list
+                    intent = new Intent(MainActivity.this, SyncActivity.class);
+                    startActivityForResult(intent, REQUEST_SYNC);
+                    getLoaderManager().initLoader(0, null, this);
                     break;
             }
 

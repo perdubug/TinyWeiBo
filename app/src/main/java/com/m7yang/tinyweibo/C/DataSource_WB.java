@@ -127,6 +127,15 @@ public class DataSource_WB {
         return records;
     }
 
+    // Check if we already have records in DB->Table
+    public boolean isDBEmpty()
+    {
+        Cursor mCursor = mDatabase.rawQuery("SELECT * FROM " + WeiboMessageDB.DBEntry.TABLE_NAME, null);
+        Boolean rowExists = (mCursor.getCount() == 0)? false : true;
+
+        return rowExists;
+    }
+
     //
     // get the record point by cursor
     //

@@ -79,7 +79,11 @@ public class LoginActivity extends AppCompatActivity implements TaskCompleted {
     @Override
     public void onTaskComplete(Integer result) {
 
-        setResult(Activity.RESULT_OK);
+        if (result == 0) {
+            setResult(Activity.RESULT_OK);
+        } else {
+            setResult(Activity.RESULT_CANCELED);
+        }
 
         // Close current activity since AsyncTask is completed
         finish();

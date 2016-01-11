@@ -1,5 +1,6 @@
 package com.m7yang.tinyweibo.V;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -46,6 +47,12 @@ public class EditActivity extends AppCompatActivity implements TaskCompleted {
 
     @Override
     public void onTaskComplete(Integer result) {
+
+        if (result == 0) {
+            setResult(Activity.RESULT_OK);
+        } else {
+            setResult(Activity.RESULT_CANCELED);
+        }
 
         // Close current activity since AsyncTask is completed
         finish();
