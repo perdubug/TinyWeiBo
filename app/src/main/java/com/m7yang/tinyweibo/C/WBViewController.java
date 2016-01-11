@@ -162,7 +162,7 @@ public class WBViewController {
 
                     JSONObject jsonObject = new JSONObject(mResult);
 
-                    if (expected_total_wb_nums != -1L) { //TODO:Only show one line first
+                    if (expected_total_wb_nums == -1L) { //TODO:Only show one line first
                         expected_total_wb_nums = Long.parseLong(jsonObject.getString("total_number"));
                     }
 

@@ -35,7 +35,7 @@
 
         <provider
             android:name="com.m7yang.tinyweibo.C.DBContentProvider"
-            android:authorities="com.tinyweibo.DBContentProvider"
+            android:authorities="com.m7yang.tinyweibo.provider"
             />
     </application>
 

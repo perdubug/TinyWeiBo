@@ -14,7 +14,6 @@ public final class WeiboMessageDB {
     // Inner class that defines the table contents
     public static abstract class DBEntry implements BaseColumns {
 
-        public static final String DATABASE_URI       = "wbm";  //NOTE:please keep same prefix as SQLiteOpenHelper's DATABASE_NAME
         public static final String TABLE_NAME         = "wb_messages";
 
         public static final String COLUMN_WB_ID       = "wb_id";
